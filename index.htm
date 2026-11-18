@@ -10863,6 +10863,7 @@ body.modo-noche .notation-shell{box-shadow:0 20px 55px rgba(0,0,0,.26)}
         }
 
         let tiempoInicio = 0, tiempoTranscurrido = 0, intervalo = null, corriendo = false;
+        let resolucionTerminada = false;
         let scrambleActual = '', historialResoluciones = [];
 
         const pantalla = document.getElementById('pantalla');
@@ -10906,24 +10907,33 @@ body.modo-noche .notation-shell{box-shadow:0 20px 55px rgba(0,0,0,.26)}
 
         function alternarCronometro() {
             if (!corriendo) {
+                // El tiempo anterior solo se borra cuando comienza una nueva resolución.
                 corriendo = true;
+                resolucionTerminada = false;
                 tiempoTranscurrido = 0;
                 tiempoInicio = Date.now();
+                pantalla.textContent = '00:00.00';
+                clearInterval(intervalo);
                 intervalo = setInterval(actualizarPantalla, 10);
             } else {
-                corriendo = false;
-                clearInterval(intervalo);
                 const msFinal = Date.now() - tiempoInicio;
+                corriendo = false;
+                resolucionTerminada = true;
+                clearInterval(intervalo);
+                intervalo = null;
+                tiempoTranscurrido = msFinal;
+                pantalla.textContent = formatearTiempo(msFinal);
                 guardarResolucion(msFinal, scrambleActual);
                 actualizarScramble();
-                tiempoTranscurrido = 0;
-                pantalla.textContent = '00:00.00';
+                // No se modifica la pantalla ni se reinicia el tiempo hasta el siguiente inicio.
             }
         }
 
         function reiniciarCronometro() {
             corriendo = false;
+            resolucionTerminada = false;
             clearInterval(intervalo);
+            intervalo = null;
             tiempoInicio = 0;
             tiempoTranscurrido = 0;
             pantalla.textContent = '00:00.00';
@@ -11013,7 +11023,9 @@ body.modo-noche .notation-shell{box-shadow:0 20px 55px rgba(0,0,0,.26)}
             }
         });
 
-        pantalla.addEventListener('touchstart', (e) => {
+        // Pointer unifica ratón, pantalla táctil y lápiz: evita dobles eventos
+        // touchstart/click que podían provocar un segundo cambio de estado.
+        pantalla.addEventListener('pointerdown', (e) => {
             e.preventDefault();
             alternarCronometro();
         });
