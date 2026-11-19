@@ -610,13 +610,59 @@ body.modo-noche .orbit-two{border-color:rgba(56,189,248,.32)}
 
 </style>
 <style>
-.tutorial-index{margin:16px 0 24px;padding:16px 18px;border:1px solid var(--borde,#d8dee8);border-radius:14px;background:var(--tarjeta,#f7f9fc);scroll-margin-top:90px}
-.tutorial-index-title{font-weight:800;font-size:.9rem;letter-spacing:.08em;margin-bottom:10px;color:var(--texto,#263449)}
-.tutorial-index ul{display:flex;flex-wrap:wrap;gap:8px 10px;list-style:none;padding:0;margin:0}
-.tutorial-index li{margin:0;padding:0}
-.tutorial-index a{display:inline-block;padding:7px 11px;border-radius:999px;border:1px solid var(--borde,#d8dee8);text-decoration:none;font-size:.9rem;font-weight:600;color:var(--texto,#263449);background:var(--fondo,#fff);transition:background .15s,transform .15s}
-.tutorial-index a:hover{background:var(--acento-suave,#e8efff);transform:translateY(-1px)}
-.tutorial-index [id]{scroll-margin-top:90px}
+.tutorial-index {
+    margin: 16px 0 24px;
+    padding: 16px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--box-bg);
+    scroll-margin-top: 90px;
+}
+
+.tutorial-index-title {
+    font-weight: 800;
+    font-size: .9rem;
+    letter-spacing: .08em;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.tutorial-index ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tutorial-index li {
+    margin: 0;
+    padding: 0;
+}
+
+.tutorial-index a {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    background: var(--bg-body);
+    transition: background .15s, border-color .15s, transform .15s;
+}
+
+.tutorial-index a:hover {
+    background: color-mix(in srgb, var(--accent-color) 15%, var(--bg-body));
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+}
+
+.tutorial-index [id] {
+    scroll-margin-top: 90px;
+}
 </style>
 <style>
 .home-game-promo{display:flex;align-items:center;gap:22px;margin:22px 0 4px;padding:24px 28px;border:1px solid var(--border-color);border-radius:20px;background:linear-gradient(115deg,var(--bg-card),var(--bg-subcard));box-shadow:0 10px 28px rgba(15,23,42,.06)}
